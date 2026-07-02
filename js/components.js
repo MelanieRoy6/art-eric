@@ -127,7 +127,6 @@ const FOOTER_TEMPLATE = `
       <p class="footer-copy" style="color:var(--color-accent);">&copy; 2026 Eric ROY &mdash; France &middot; États-Unis &middot; Canada &mdash; Tous droits réservés</p>
       <nav class="footer-legal" aria-label="Liens légaux">
         <a href="/mentions-legales.html">Mentions légales</a>
-        <a href="/mentions-legales.html">Politique de confidentialité</a>
         <a href="https://www.linkedin.com/in/m%C3%A9lanie-roy/" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent);">Site développé par Mélanie ROY</a>
       </nav>
     </div>
