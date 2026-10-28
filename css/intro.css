@@ -1,0 +1,372 @@
+/* ============================================================
+   intro.css — Animation d'introduction (page d'accueil)
+   Eric ROY | Portfolio Artistique
+
+   Séquence (≈ 5,6 s) :
+     0 → 40 %   le tableau tournoie sur lui-même (≈ 1,5 tour, avec épaisseur réelle)
+     46 → 66 %  zoom sur le lion à la couronne
+     72 → 92 %  dézoom jusqu'au tableau entier
+     puis       l'écran se lève et la page d'accueil apparaît
+
+   100 % CSS (transforms 3D) — aucune dépendance. Piloté par js/intro.js.
+   ============================================================ */
+
+
+/* ============================================================
+   PARAMÈTRES
+   ============================================================ */
+.intro {
+  --intro-dur:   5.6s;
+  --intro-bg:    #F3EEE6;
+  --intro-ink:   #1A1A1A;
+  --intro-orange: var(--color-accent, #FF6B35);
+
+  /* Dimensions du tableau (ratio du fichier : 531 × 708) */
+  --w: min(70vw, 52svh);
+  --h: calc(var(--w) * 1.333);
+  --d: calc(var(--w) * 0.05);          /* épaisseur du châssis */
+
+  /* Zoom : point visé (le lion à la couronne) exprimé en % du tableau */
+  --zoom: 3;
+  --focus-x: 0.5;
+  --focus-y: 0.7;
+}
+
+
+/* ============================================================
+   ÉCRAN
+   ============================================================ */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;                       /* au-dessus du header (1000) */
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 55% at 50% 42%, #FBF8F3 0%, var(--intro-bg) 62%, #E9E2D6 100%);
+  color: var(--intro-ink);
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 900ms cubic-bezier(0.77, 0, 0.18, 1);
+}
+
+/* Sortie : l'écran se lève vers le haut et révèle la page */
+.intro.is-leaving {
+  clip-path: inset(0 0 100% 0);
+  pointer-events: none;
+}
+
+/* Scroll bloqué pendant l'intro */
+html.intro-playing { overflow: hidden; }
+
+/* La page d'accueil reste en attente derrière l'écran :
+   ses éléments .animate-in se déclenchent quand l'écran se lève. */
+html.intro-hold .hero .animate-in,
+html.intro-hold .hero .animate-in.is-visible {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+
+/* ============================================================
+   SCÈNE 3D
+   ============================================================ */
+.intro-stage {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  perspective: 1600px;
+}
+
+.intro-camera,
+.intro-cube {
+  transform-style: preserve-3d;
+}
+
+.intro-camera {
+  width: var(--w);
+  height: var(--h);
+  will-change: transform;
+}
+
+.intro-cube {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  will-change: transform;
+}
+
+/* --- Faces du tableau --- */
+.intro-face {
+  position: absolute;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+.intro-face--front {
+  inset: 0;
+  transform: translateZ(calc(var(--d) / 2));
+  background: #0d0d0d;
+}
+
+.intro-face--front img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Reflet de vernis qui balaye la toile quand elle se stabilise */
+.intro-face--front::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.38) 48%,
+    transparent 66%
+  );
+  transform: translateX(-130%);
+  pointer-events: none;
+}
+
+/* Dos de la toile : lin brut + croisillon de châssis */
+.intro-face--back {
+  inset: 0;
+  transform: rotateY(180deg) translateZ(calc(var(--d) / 2));
+  background:
+    linear-gradient(135deg, transparent calc(50% - 1px), rgba(90, 70, 40, 0.28) 50%, transparent calc(50% + 1px)),
+    linear-gradient(45deg,  transparent calc(50% - 1px), rgba(90, 70, 40, 0.28) 50%, transparent calc(50% + 1px)),
+    repeating-linear-gradient(0deg, rgba(120, 95, 60, 0.07) 0 2px, transparent 2px 5px),
+    #CDBB9A;
+  box-shadow: inset 0 0 0 calc(var(--w) * 0.045) #B8A47F;
+  display: grid;
+  place-items: end center;
+  padding-bottom: calc(var(--w) * 0.09);
+}
+
+.intro-back-label {
+  font-family: var(--font-sans, sans-serif);
+  font-size: clamp(0.5rem, calc(var(--w) * 0.024), 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(60, 45, 25, 0.78);
+  background: rgba(255, 255, 255, 0.55);
+  padding: 0.7em 1.2em;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* Tranches (châssis noir) */
+.intro-face--left,
+.intro-face--right {
+  top: 0;
+  width: var(--d);
+  height: 100%;
+  background: linear-gradient(90deg, #050505, #1d1d1d 55%, #0a0a0a);
+}
+.intro-face--left  { left: calc(var(--d) / -2);                transform: rotateY(-90deg); }
+.intro-face--right { left: calc(var(--w) - var(--d) / 2);      transform: rotateY(90deg);  }
+
+.intro-face--top,
+.intro-face--bottom {
+  left: 0;
+  width: 100%;
+  height: var(--d);
+  background: linear-gradient(0deg, #050505, #232323 55%, #0a0a0a);
+}
+.intro-face--top    { top: calc(var(--d) / -2);                transform: rotateX(90deg);  }
+.intro-face--bottom { top: calc(var(--h) - var(--d) / 2);      transform: rotateX(-90deg); }
+
+/* Ombre au sol */
+.intro-shadow {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + var(--h) / 2 + 3svh);
+  width: calc(var(--w) * 0.9);
+  height: calc(var(--w) * 0.09);
+  margin-left: calc(var(--w) * -0.45);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(40, 28, 15, 0.34), transparent 70%);
+  filter: blur(6px);
+  opacity: 0;
+}
+
+
+/* ============================================================
+   MARQUE, PROGRESSION, BOUTON « PASSER »
+   ============================================================ */
+.intro-brand {
+  position: absolute;
+  left: var(--container-padding, 1.5rem);
+  bottom: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-sans, sans-serif);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  opacity: 0;
+}
+
+.intro-brand::after {
+  content: '';
+  width: 5px;
+  height: 5px;
+  margin-left: 3px;
+  border-radius: 50%;
+  background: var(--intro-orange);
+}
+
+.intro-skip {
+  position: absolute;
+  right: var(--container-padding, 1.5rem);
+  bottom: 0.9rem;
+  min-height: 44px;
+  padding: 0 0.25rem;
+  font-family: var(--font-sans, sans-serif);
+  font-size: var(--text-xs, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--intro-ink);
+  background: rgba(243, 238, 230, 0.92);   /* reste lisible par-dessus le zoom */
+  opacity: 0;
+  transition: color var(--transition-fast, 150ms ease);
+}
+
+.intro-skip:hover { color: var(--intro-orange); }
+
+.intro-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--intro-orange);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+
+/* ============================================================
+   CHORÉGRAPHIE (démarre quand .is-playing est posé par intro.js)
+   ============================================================ */
+.intro.is-playing .intro-cube {
+  animation: intro-spin var(--intro-dur) linear both;
+}
+
+.intro.is-playing .intro-camera {
+  animation: intro-zoom var(--intro-dur) linear both;
+}
+
+.intro.is-playing .intro-face--front::after {
+  animation: intro-sheen var(--intro-dur) linear both;
+}
+
+.intro.is-playing .intro-shadow {
+  animation: intro-shadow var(--intro-dur) linear both;
+}
+
+.intro.is-playing .intro-progress {
+  animation: intro-progress var(--intro-dur) linear both;
+}
+
+.intro.is-playing .intro-skip {
+  animation: intro-fade 600ms 400ms ease both;
+}
+
+/* La marque s'efface pendant le zoom pour ne pas recouvrir la toile */
+.intro.is-playing .intro-brand {
+  animation: intro-brand var(--intro-dur) linear both;
+}
+
+/* 1. Le tableau tournoie (≈ 1,5 tour) puis se stabilise de face */
+@keyframes intro-spin {
+  0% {
+    opacity: 0;
+    transform: rotateX(16deg) rotateY(-560deg) scale(0.58);
+    animation-timing-function: cubic-bezier(0.16, 0.84, 0.3, 1);
+  }
+  5%  { opacity: 1; }
+  40% {
+    opacity: 1;
+    transform: rotateX(0deg) rotateY(0deg) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateX(0deg) rotateY(0deg) scale(1);
+  }
+}
+
+/* 2. Zoom sur le motif, 3. dézoom */
+@keyframes intro-zoom {
+  0%, 46% {
+    transform: translate3d(0, 0, 0) scale(1);
+    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  66%, 72% {
+    transform:
+      translate3d(
+        calc(var(--w) * (0.5 - var(--focus-x)) * var(--zoom)),
+        calc(var(--h) * (0.5 - var(--focus-y)) * var(--zoom)),
+        0
+      )
+      scale(var(--zoom));
+    animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  92%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+@keyframes intro-sheen {
+  0%, 36%  { transform: translateX(-130%); }
+  47%, 100% { transform: translateX(130%); }
+}
+
+@keyframes intro-shadow {
+  0%   { opacity: 0; transform: scaleX(0.5); }
+  30%  { opacity: 1; transform: scaleX(1); }
+  44%  { opacity: 1; }
+  50%, 88% { opacity: 0; }
+  96%, 100% { opacity: 1; }
+}
+
+@keyframes intro-progress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes intro-brand {
+  0%   { opacity: 0; }
+  8%, 44% { opacity: 1; }
+  50%, 88% { opacity: 0; }
+  96%, 100% { opacity: 1; }
+}
+
+@keyframes intro-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+
+/* ============================================================
+   ACCESSIBILITÉ — mouvement réduit
+   Pas d'intro, et les apparitions au scroll deviennent de
+   simples fondus (sans glissement).
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .intro { display: none; }
+
+  .animate-in {
+    transform: none;
+    transition: opacity 300ms ease;
+  }
+
+  html { scroll-behavior: auto; }
+}
