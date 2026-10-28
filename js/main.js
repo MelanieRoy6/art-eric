@@ -15,6 +15,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   initHeader();          // Injecte le header (défini dans components.js)
   initFooter();          // Injecte le footer (défini dans components.js)
+  if (typeof I18N !== 'undefined') I18N.init(); // Applique la langue mémorisée
   initScrollAnimations();
   initPageFade();
   initContactForm();     // Gestion du formulaire (no-op sur les autres pages)
@@ -82,7 +83,8 @@ function initContactForm() {
 
     // Simuler l'envoi (à remplacer par fetch() vers un service email)
     const submitBtn = form.querySelector('[type="submit"]');
-    submitBtn.textContent = 'Envoi en cours…';
+    const submitLabel = submitBtn.querySelector('[data-i18n]') || submitBtn;
+    submitLabel.textContent = typeof I18N !== 'undefined' ? I18N.t('contact.sending') : 'Envoi en cours…';
     submitBtn.disabled = true;
 
     setTimeout(() => {

@@ -18,24 +18,37 @@ const HEADER_TEMPLATE = `
 
     <nav class="site-nav" aria-label="Navigation principale">
       <ul role="list">
-        <li><a href="/index.html"     class="nav-link" data-page="index">Accueil</a></li>
-        <li><a href="/galerie.html"   class="nav-link" data-page="galerie">Galerie</a></li>
-        <li><a href="/a-propos.html"  class="nav-link" data-page="a-propos">À Propos</a></li>
-        <li><a href="/contact.html"   class="nav-link" data-page="contact">Contact</a></li>
+        <li><a href="/index.html"     class="nav-link" data-page="index"    data-i18n="nav.home">Accueil</a></li>
+        <li><a href="/galerie.html"   class="nav-link" data-page="galerie"  data-i18n="nav.gallery">Galerie</a></li>
+        <li><a href="/a-propos.html"  class="nav-link" data-page="a-propos" data-i18n="nav.about">À Propos</a></li>
+        <li><a href="/contact.html"   class="nav-link" data-page="contact"  data-i18n="nav.contact">Contact</a></li>
       </ul>
     </nav>
 
-    <button
-      class="burger-btn"
-      id="burger-btn"
-      aria-label="Ouvrir le menu de navigation"
-      aria-expanded="false"
-      aria-controls="mobile-nav"
-    >
-      <span class="burger-line" aria-hidden="true"></span>
-      <span class="burger-line" aria-hidden="true"></span>
-      <span class="burger-line" aria-hidden="true"></span>
-    </button>
+    <div class="header-actions">
+      <button
+        class="lang-toggle"
+        id="lang-toggle"
+        aria-label="Changer la langue / Switch language"
+        title="Changer la langue / Switch language"
+      >
+        <span class="lang-opt is-active" data-lang="fr">FR</span>
+        <span class="lang-sep" aria-hidden="true">/</span>
+        <span class="lang-opt" data-lang="en">EN</span>
+      </button>
+
+      <button
+        class="burger-btn"
+        id="burger-btn"
+        aria-label="Ouvrir le menu de navigation"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <span class="burger-line" aria-hidden="true"></span>
+        <span class="burger-line" aria-hidden="true"></span>
+        <span class="burger-line" aria-hidden="true"></span>
+      </button>
+    </div>
 
   </div>
 </header>
@@ -47,10 +60,10 @@ const HEADER_TEMPLATE = `
   aria-hidden="true"
 >
   <ul role="list">
-    <li><a href="/index.html"     class="nav-link" data-page="index">Accueil</a></li>
-    <li><a href="/galerie.html"   class="nav-link" data-page="galerie">Galerie</a></li>
-    <li><a href="/a-propos.html"  class="nav-link" data-page="a-propos">À Propos</a></li>
-    <li><a href="/contact.html"   class="nav-link" data-page="contact">Contact</a></li>
+    <li><a href="/index.html"     class="nav-link" data-page="index"    data-i18n="nav.home">Accueil</a></li>
+    <li><a href="/galerie.html"   class="nav-link" data-page="galerie"  data-i18n="nav.gallery">Galerie</a></li>
+    <li><a href="/a-propos.html"  class="nav-link" data-page="a-propos" data-i18n="nav.about">À Propos</a></li>
+    <li><a href="/contact.html"   class="nav-link" data-page="contact"  data-i18n="nav.contact">Contact</a></li>
   </ul>
 </nav>
 `;
@@ -70,7 +83,7 @@ const FOOTER_TEMPLATE = `
         <a href="/index.html" class="site-logo" aria-label="Eric ROY — Retour à l'accueil">
           ERIC ROY<span class="logo-dot" aria-hidden="true"></span>
         </a>
-        <p class="footer-tagline">
+        <p class="footer-tagline" data-i18n-html="footer.tagline">
           Artiste peintre franco-américain.<br>
           Un art abstrait unique, né entre<br>deux continents.
         </p>
@@ -99,24 +112,24 @@ const FOOTER_TEMPLATE = `
 
       <!-- Colonne navigation -->
       <nav class="footer-nav" aria-label="Navigation secondaire">
-        <h3 class="footer-col-title">Navigation</h3>
+        <h3 class="footer-col-title" data-i18n="footer.nav_col">Navigation</h3>
         <ul role="list">
-          <li><a href="/index.html">Accueil</a></li>
-          <li><a href="/galerie.html">Galerie</a></li>
-          <li><a href="/a-propos.html">À Propos</a></li>
-          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/index.html"    data-i18n="nav.home">Accueil</a></li>
+          <li><a href="/galerie.html"  data-i18n="nav.gallery">Galerie</a></li>
+          <li><a href="/a-propos.html" data-i18n="nav.about">À Propos</a></li>
+          <li><a href="/contact.html"  data-i18n="nav.contact">Contact</a></li>
         </ul>
       </nav>
 
       <!-- Colonne informations -->
       <div class="footer-nav">
-        <h3 class="footer-col-title">Commandes &amp; Projets</h3>
+        <h3 class="footer-col-title" data-i18n="footer.orders_col">Commandes &amp; Projets</h3>
         <ul role="list">
-          <li><a href="/contact.html">Acquérir une œuvre</a></li>
-          <li><a href="/contact.html">Tableau sur mesure</a></li>
-          <li><a href="/contact.html">Projets corporatifs</a></li>
-          <li><a href="/contact.html">Architectes &amp; Designers</a></li>
-          <li><a href="/mentions-legales.html">Mentions légales</a></li>
+          <li><a href="/contact.html"          data-i18n="footer.acquire">Acquérir une œuvre</a></li>
+          <li><a href="/contact.html"          data-i18n="footer.custom">Tableau sur mesure</a></li>
+          <li><a href="/contact.html"          data-i18n="footer.corporate">Projets corporatifs</a></li>
+          <li><a href="/contact.html"          data-i18n="footer.architects">Architectes &amp; Designers</a></li>
+          <li><a href="/mentions-legales.html" data-i18n="footer.legal">Mentions légales</a></li>
         </ul>
       </div>
 
@@ -124,10 +137,10 @@ const FOOTER_TEMPLATE = `
 
     <!-- Bande du bas -->
     <div class="footer-bottom">
-      <p class="footer-copy" style="color:var(--color-accent);">&copy; 2026 Eric ROY &mdash; France &middot; États-Unis &middot; Canada &mdash; Tous droits réservés</p>
+      <p class="footer-copy" style="color:var(--color-accent);" data-i18n="footer.copyright">&copy; 2026 Eric ROY &mdash; France &middot; États-Unis &middot; Canada &mdash; Tous droits réservés</p>
       <nav class="footer-legal" aria-label="Liens légaux">
-        <a href="/mentions-legales.html">Mentions légales</a>
-        <a href="https://www.linkedin.com/in/m%C3%A9lanie-roy/" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent);">Site développé par Mélanie ROY</a>
+        <a href="/mentions-legales.html" data-i18n="footer.legal">Mentions légales</a>
+        <a href="https://www.linkedin.com/in/m%C3%A9lanie-roy/" target="_blank" rel="noopener noreferrer" style="color:var(--color-accent);" data-i18n="footer.dev">Site développé par Mélanie ROY</a>
       </nav>
     </div>
 
@@ -139,13 +152,6 @@ const FOOTER_TEMPLATE = `
 /* ============================================================
    INJECTION DES COMPOSANTS
    ============================================================ */
-
-/**
- * Insère un template HTML à une position donnée dans un sélecteur cible.
- * @param {string} selector - Sélecteur CSS de l'élément cible
- * @param {string} template - Chaîne HTML à insérer
- * @param {InsertPosition} position - Position d'insertion
- */
 function injectComponent(selector, template, position = 'afterbegin') {
   const target = document.querySelector(selector);
   if (!target) {
@@ -174,7 +180,7 @@ function initHeader() {
   };
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll(); // Appel initial
+  onScroll();
 
   /* --- Toggle menu burger --- */
   if (burgerBtn && mobileNav) {
@@ -183,16 +189,13 @@ function initHeader() {
       burgerBtn.classList.toggle('is-active', isOpen);
       burgerBtn.setAttribute('aria-expanded', String(isOpen));
       mobileNav.setAttribute('aria-hidden', String(!isOpen));
-      // Bloque le scroll du body quand le menu est ouvert
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
 
-    /* Fermer le menu au clic sur un lien */
     mobileNav.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', closeMobileMenu);
     });
 
-    /* Fermer au clic sur Escape */
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && mobileNav.classList.contains('is-open')) {
         closeMobileMenu();

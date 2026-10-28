@@ -22,6 +22,7 @@
   <link rel="preload" href="/assets/intro-tableau.jpg" as="image">
 
   <script src="/js/components.js" defer></script>
+  <script src="/js/i18n.js" defer></script>
   <script src="/js/main.js" defer></script>
   <script src="/js/intro.js" defer></script>
 </head>
@@ -40,23 +41,23 @@
 
           <!-- Contenu textuel -->
           <div class="hero-content">
-            <p class="hero-eyebrow animate-in">Artiste Peintre Franco-Américain</p>
+            <p class="hero-eyebrow animate-in" data-i18n="index.hero_eyebrow">Artiste Peintre Franco-Américain</p>
 
-            <h1 class="hero-title animate-in animate-in--delay-1" id="hero-title">
+            <h1 class="hero-title animate-in animate-in--delay-1" id="hero-title" data-i18n-html="index.hero_title">
               De la France<br>
               à l'Amérique, <em>l'abstraction</em><br>
               comme seule patrie
             </h1>
 
-            <p class="hero-description animate-in animate-in--delay-2">
+            <p class="hero-description animate-in animate-in--delay-2" data-i18n="index.hero_desc">
               Grandi en France, conquis par l'immensité du continent américain,
               Eric ROY crée entre les États-Unis et le Canada des œuvres abstraites
               qui transcendent les frontières — géographiques et émotionnelles.
             </p>
 
             <div class="hero-cta animate-in animate-in--delay-3">
-              <a href="/galerie.html" class="btn btn--primary">Découvrir les œuvres</a>
-              <a href="/a-propos.html" class="btn btn--ghost">L'histoire de l'artiste</a>
+              <a href="/galerie.html" class="btn btn--primary" data-i18n="index.hero_btn_gallery">Découvrir les œuvres</a>
+              <a href="/a-propos.html" class="btn btn--ghost" data-i18n="index.hero_btn_about">L'histoire de l'artiste</a>
             </div>
           </div>
 
@@ -86,15 +87,15 @@
 
           <!-- Texte narratif -->
           <div>
-            <span class="section-subtitle animate-in">Un art né entre deux mondes</span>
+            <span class="section-subtitle animate-in" data-i18n="index.intro_subtitle">Un art né entre deux mondes</span>
             <div class="divider animate-in animate-in--delay-1" aria-hidden="true"></div>
 
-            <p class="home-intro-lead animate-in animate-in--delay-1">
+            <p class="home-intro-lead animate-in animate-in--delay-1" data-i18n="index.intro_quote">
               « Je peins depuis deux continents, mais mes toiles n'ont pas de
               passeport — elles appartiennent à ceux qui les ressentent. »
             </p>
 
-            <p class="home-intro-body animate-in animate-in--delay-2">
+            <p class="home-intro-body animate-in animate-in--delay-2" data-i18n="index.intro_p1">
               Formé en France, Eric ROY a traversé l'Atlantique pour laisser
               l'immensité nord-américaine transformer sa vision et son geste.
               Il navigue aujourd'hui en permanence entre les États-Unis et le Canada,
@@ -105,7 +106,7 @@
             </p>
 
             <div style="margin-top:var(--space-8);" class="animate-in animate-in--delay-3">
-              <a href="/a-propos.html" class="btn btn--ghost">Lire la biographie</a>
+              <a href="/a-propos.html" class="btn btn--ghost" data-i18n="index.intro_btn_bio">Lire la biographie</a>
             </div>
           </div>
 
@@ -114,12 +115,12 @@
 
             <div class="stat-item" role="listitem">
               <span class="stat-number">2</span>
-              <span class="stat-label">Continents<br>Europe &amp; Amérique du Nord</span>
+              <span class="stat-label" data-i18n-html="index.stat1_label">Continents<br>Europe &amp; Amérique du Nord</span>
             </div>
 
             <div class="stat-item" role="listitem">
               <span class="stat-number">20<small style="font-size:0.55em;">+</small></span>
-              <span class="stat-label">Années<br>de création abstraite</span>
+              <span class="stat-label" data-i18n-html="index.stat2_label">Années<br>de création abstraite</span>
             </div>
 
           </div>
@@ -136,10 +137,10 @@
       <div class="container">
 
         <header class="section-header">
-          <span class="section-subtitle animate-in">Créations</span>
-          <h2 class="section-title animate-in animate-in--delay-1" id="works-title">Quelques oeuvres</h2>
+          <span class="section-subtitle animate-in" data-i18n="index.works_subtitle">Créations</span>
+          <h2 class="section-title animate-in animate-in--delay-1" id="works-title" data-i18n="index.works_title">Quelques oeuvres</h2>
           <div class="divider animate-in animate-in--delay-1" aria-hidden="true"></div>
-          <p class="section-description animate-in animate-in--delay-2">
+          <p class="section-description animate-in animate-in--delay-2" data-i18n="index.works_desc">
             Nées entre les États-Unis et le Canada, ces toiles témoignent d'un geste
             libre et habité — une abstraction sans territoire fixe, si ce n'est la couleur.
           </p>
@@ -157,7 +158,7 @@
             <div class="card-body">
               <h3 class="card-title">1972</h3>
               <div class="card-meta">
-                <span class="card-technique">Tableau sur mesure</span>
+                <span class="card-technique" data-i18n="index.card1_technique">Tableau sur mesure</span>
               </div>
             </div>
           </article>
@@ -172,7 +173,7 @@
             <div class="card-body">
               <h3 class="card-title">American horse</h3>
               <div class="card-meta">
-                <span class="card-technique">Oeuvre abstraite</span>
+                <span class="card-technique" data-i18n="index.card2_technique">Oeuvre abstraite</span>
               </div>
             </div>
           </article>
@@ -187,7 +188,7 @@
             <div class="card-body">
               <h3 class="card-title">1993</h3>
               <div class="card-meta">
-                <span class="card-technique">Tableau sur mesure</span>
+                <span class="card-technique" data-i18n="index.card3_technique">Tableau sur mesure</span>
               </div>
             </div>
           </article>
@@ -202,7 +203,7 @@
             <div class="card-body">
               <h3 class="card-title">Natural Light</h3>
               <div class="card-meta">
-                <span class="card-technique">Oeuvre abstraite</span>
+                <span class="card-technique" data-i18n="index.card4_technique">Oeuvre abstraite</span>
               </div>
             </div>
           </article>
@@ -210,7 +211,7 @@
         </div>
 
         <div class="works-cta animate-in">
-          <a href="/galerie.html" class="btn btn--ghost">Voir toutes les œuvres</a>
+          <a href="/galerie.html" class="btn btn--ghost" data-i18n="index.works_all">Voir toutes les œuvres</a>
         </div>
 
       </div>
@@ -221,18 +222,18 @@
          ====================================================== -->
     <section class="cta-section" aria-labelledby="cta-title">
       <div class="container">
-        <p class="cta-label animate-in">Collaboration &amp; Acquisition</p>
-        <h2 class="cta-title animate-in animate-in--delay-1" id="cta-title">
+        <p class="cta-label animate-in" data-i18n="index.cta_label">Collaboration &amp; Acquisition</p>
+        <h2 class="cta-title animate-in animate-in--delay-1" id="cta-title" data-i18n-html="index.cta_title">
           Une œuvre vous émeut&nbsp;?<br>
           Une commande vous inspire&nbsp;?
         </h2>
-        <p class="cta-description animate-in animate-in--delay-2">
+        <p class="cta-description animate-in animate-in--delay-2" data-i18n="index.cta_desc">
           Que vous soyez collectionneur en France, aux États-Unis ou au Canada,
           entreprise en quête d'une création d'exception, ou architecte imaginant
           un espace — Eric ROY vous répondra personnellement.
         </p>
         <div class="animate-in animate-in--delay-3">
-          <a href="/contact.html" class="btn btn--outline">Prendre contact</a>
+          <a href="/contact.html" class="btn btn--outline" data-i18n="index.cta_btn">Prendre contact</a>
         </div>
       </div>
     </section>

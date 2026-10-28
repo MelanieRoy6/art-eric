@@ -182,6 +182,48 @@
   text-transform: none;
 }
 
+/* --- Groupe actions (toggle langue + burger) --- */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* --- Toggle FR / EN --- */
+.lang-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.14em;
+  padding: 5px 8px;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.lang-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.lang-opt {
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.lang-opt.is-active {
+  color: var(--color-accent);
+  font-weight: var(--weight-bold);
+}
+
+.lang-sep {
+  color: var(--color-border-light);
+}
+
 /* --- Breakpoint desktop : nav visible, burger masqué --- */
 @media (min-width: 768px) {
   .site-nav   { display: flex; }
